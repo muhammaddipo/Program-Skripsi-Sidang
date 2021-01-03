@@ -1,0 +1,31 @@
+Feature: Auth Login User
+    Untuk menggunakan program
+    Pengguna harus login terlebih dahulu
+
+    Scenario: Login berhasil admin
+        Given Pengguna ada di halaman login
+        When Pengguna mengisi email dengan admin123@gilacoding.com
+        And Pengguna mengisi password dengan admin123
+        And Pengguna menekan tombol Login
+        Then Pengguna berhasil masuk ke halaman home
+
+    Scenario: Login berhasil user
+        Given Pengguna ada di halaman login
+        When Pengguna mengisi email dengan user123@gilacoding.com
+        And Pengguna mengisi password dengan user123
+        And Pengguna menekan tombol Login
+        Then Pengguna berhasil masuk ke halaman home
+
+    Scenario: Login gagal admin
+        Given Pengguna ada di halaman login
+        When Pengguna mengisi email dengan admin123@gilacoding.com
+        And Pengguna mengisi password dengan admin122
+        And Pengguna menekan tombol Login
+        Then tetap dihalaman login
+
+    Scenario: Login gagal user
+        Given Pengguna ada di halaman login
+        When Pengguna mengisi email dengan user123@gilacoding.com
+        And Pengguna mengisi password dengan user122
+        And Pengguna menekan tombol Login
+        Then tetap dihalaman login

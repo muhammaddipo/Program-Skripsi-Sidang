@@ -1,0 +1,22 @@
+Feature: User User User
+    Admin bisa menambah user baru
+    Data user dibutuhkan jika pengguna ingin meminjam buku
+
+    Scenario: Berhasil tambah user
+    Given Pengguna ada di halaman login
+    When Pengguna mengisi email dengan admin123@gilacoding.com
+    And Pengguna mengisi password dengan admin123
+    And Pengguna menekan tombol Login
+    And Pengguna menekan link Master Data
+    And Pengguna menekan link Data User
+    And Pengguna menekan link Tambah User
+    And Pengguna mengisi name dengan Test
+    And Pengguna mengisi username dengan test
+    And Pengguna mengisi email dengan test@gmail.com
+    And Pengguna melampirkan gambar user dengan kodekiddo
+    And Pengguna menekan opsi level dengan user
+    And Pengguna mengisi password dengan password1
+    And Pengguna mengisi password_confirmation dengan password1
+    And Pengguna menekan tombol Register
+    Then Pengguna dengan atribut username test terdaftar pada tabel users
+    

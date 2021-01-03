@@ -1,0 +1,20 @@
+Feature: Buku Buku Buku
+    Admin bisa menambah buku baru
+    Data buku baru yang bisa dipinjam oleh pengguna
+
+    Scenario: Berhasil tambah buku
+    Given Pengguna ada di halaman login
+    When Pengguna mengisi email dengan admin123@gilacoding.com
+    And Pengguna mengisi password dengan admin123
+    And Pengguna menekan tombol Login
+    And Pengguna mengisi judul dengan Pemgrograman Python
+    And Pengguna mengisi isbn dengan 123456789
+    And Pengguna mengisi pengarang dengan Muhammad Dipo
+    And Pengguna mengisi penerbit dengan PT Muhammad Dipo
+    And Pengguna mengisi tahun_terbit dengan 2015
+    And Pengguna mengisi jumlah_buku dengan 5
+    And Pengguna mengisi deskripsi dengan Buku untuk belajar Bahasa Pemrograman Python
+    And Pengguna menekan opsi lokasi dengan rak1 
+    And Pengguna melampirkan cover buku dengan python
+    And Pengguna menekan tombol Submit
+    Then Pengguna dengan atribut isbn 123456789 terdaftar pada tabel buku 
