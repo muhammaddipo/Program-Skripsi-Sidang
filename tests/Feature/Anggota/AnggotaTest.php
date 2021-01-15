@@ -12,16 +12,13 @@ use App\Http\Controllers\AnggotaController;
 class AnggotaTest extends TestCase { 
  
 public function testUnit1(){
- 	$response = $this->post('/login',[
-	'email'=>'admin123@gilacoding.com',
-	'password'=>'admin123',
-	]);
-	$count = Anggota::where('nama','Test')->count();
+ 	$count = Anggota::where('nama','Test')->count();
 	$array1 = [
 	'nama'=>'Test',
 	'npm'=>'0000001',
 	'tempat_lahir'=>'Bandung',
 	'tgl_lahir'=>'1998-04-27',
+	'jenis_kelamin'=>'Laki-Laki',
 	'prodi'=>'TI',
 	'user_id'=>'3',
 	];
@@ -29,7 +26,7 @@ public function testUnit1(){
 	if($count==0){
 		$controller->storeFunction($array1, $gambar=NULL);
 	}
-	$newCount = Anggota::where('nama','Test')->count();
+	$newCount = Anggota::where('npm','0000001')->count();
 	$this->assertEquals($count, $newCount-1); 
  	 
 } 

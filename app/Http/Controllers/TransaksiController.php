@@ -118,7 +118,7 @@ class TransaksiController extends Controller
             'tgl_kembali' => $array['tgl_kembali'],
             'buku_id' => $array['buku_id'],
             'anggota_id' => $array['anggota_id'],
-            'ket' => $array['ket'],
+            'keterangan' => $array['keterangan'],
             'status' => 'pinjam'
         ]);
 

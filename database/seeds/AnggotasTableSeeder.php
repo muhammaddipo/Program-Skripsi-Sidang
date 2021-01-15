@@ -19,7 +19,7 @@ class AnggotasTableSeeder extends Seeder
               'nama' 			=> 'Admin GC',
               'tempat_lahir'	=> 'Banjarmasin',
               'tgl_lahir'		=> '2018-01-01',
-              'jk'				=> 'L',
+              'jenis_kelamin'				=> 'Laki-Laki',
               'prodi'			=> 'TI',
               'created_at'      => \Carbon\Carbon::now(),
               'updated_at'      => \Carbon\Carbon::now()
@@ -31,7 +31,7 @@ class AnggotasTableSeeder extends Seeder
               'nama' 			=> 'User GC',
               'tempat_lahir'	=> 'Banjarmasin',
               'tgl_lahir'		=> '2019-01-01',
-              'jk'				=> 'L',
+              'jenis_kelamin'				=> 'Laki-Laki',
               'prodi'			=> 'TI',
               'created_at'      => \Carbon\Carbon::now(),
               'updated_at'      => \Carbon\Carbon::now()
