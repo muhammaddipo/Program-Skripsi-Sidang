@@ -3,14 +3,11 @@ Feature: Anggota Anggota Anggota
     Data anggota dibutuhkan jika pengguna ingin meminjam buku
 
     Scenario: Berhasil tambah anggota
-    Given Pengguna ada di halaman login
-    When Pengguna mengisi email dengan admin123@gilacoding.com
-    And Pengguna mengisi password dengan admin123
-    And Pengguna menekan tombol Login
-    And Pengguna mengisi nama dengan Test
+    Given Pengguna sudah masuk kedalam website
+    When Pengguna mengisi nama dengan Test
     And Pengguna mengisi npm dengan 0000001
     And Pengguna mengisi tempat_lahir dengan Bandung
-    And Pengguna memilih tgl_lahir dengan 04271998
+    And Pengguna memilih tgl_lahir dengan 04271998 27041998
     And Pengguna menekan opsi jenis_kelamin dengan Laki-Laki
     And Pengguna menekan opsi prodi dengan TI 
     And Pengguna menekan opsi user_id dengan 3

@@ -36,6 +36,20 @@ class ReaderWriterController extends Controller
         return $namaFile;
     }
 
+    public function bacaNamaModel(){
+        $dir = "..\\app\\";
+        $namaModel = [];
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($file = readdir($dh)) !== false) {
+                    array_push($namaModel, $file);
+                }
+                closedir($dh);
+            }
+        }
+        return $namaModel;
+    }
+
     public function bacaFileHeader()
     {
         $header = [];

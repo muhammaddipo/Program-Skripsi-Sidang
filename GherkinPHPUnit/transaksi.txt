@@ -3,13 +3,8 @@ Feature: Transaksi Transaksi Transaksi
     Fitur transaksi menambah data peminjaman buku oleh user
 
     Scenario: Berhasil tambah transaksi
-        Given Pengguna ada di halaman login
-        When Pengguna mengisi email dengan admin123@gilacoding.com
-        And Pengguna mengisi password dengan admin123
-        And Pengguna menekan tombol Login
-        And Pengguna menekan link Transaksi Buku
-        And Pengguna menekan link Tambah Transaksi
-        And Pengguna memilih kode_transaksi dengan TR00001
+        Given Pengguna sudah masuk kedalam website
+        When Pengguna memilih kode_transaksi dengan TR00001
         And Pengguna memilih tgl_pinjam dengan 01012021
         And Pengguna memilih tgl_kembali dengan 01052021
         And Pengguna menekan tombol Cari Buku
@@ -17,6 +12,6 @@ Feature: Transaksi Transaksi Transaksi
         And Pengguna memilih buku_id dengan 2
         And Pengguna klik nama anggota Test
         And Pengguna memilik anggota_id dengan 3
-        And Pengguna mengisi ket dengan Pinjam
+        And Pengguna mengisi keterangan dengan Pinjam
         And Pengguna menekan tombol Submit
-        Then Transaksi dengan atribut kode_transaksi test terdaftar pada tabel transaksi
+        Then Transaksi dengan atribut kode_transaksi TR00001 terdaftar pada tabel transaksi

@@ -17,16 +17,16 @@ public function testUnit1(){
  	->clickLink('Data Anggota')
  	->clickLink('Tambah Anggota')
  	->type('nama', 'Test') 
- 	->type('npm', '0000001') 
+ 	->type('npm', '10000333') 
  	->type('tempat_lahir', 'Bandung') 
- 	->keys('#tgl_lahir','04271998')
+ 	->keys('#tgl_lahir','27041998')
  	->select('jenis_kelamin','Laki-Laki')
  	->select('prodi','TI')
  	->select('user_id','3')
  	->press('Submit')
  	;});
  	$this->assertDatabaseHas('anggota',[ 
- 	'npm' => '0000001'
+ 	'npm' => '10000333'
 	]);
  	 
 } 

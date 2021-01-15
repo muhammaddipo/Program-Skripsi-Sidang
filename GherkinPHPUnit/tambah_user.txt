@@ -3,14 +3,8 @@ Feature: User User User
     Data user dibutuhkan jika pengguna ingin meminjam buku
 
     Scenario: Berhasil tambah user
-    Given Pengguna ada di halaman login
-    When Pengguna mengisi email dengan admin123@gilacoding.com
-    And Pengguna mengisi password dengan admin123
-    And Pengguna menekan tombol Login
-    And Pengguna menekan link Master Data
-    And Pengguna menekan link Data User
-    And Pengguna menekan link Tambah User
-    And Pengguna mengisi name dengan Test
+    Given Pengguna sudah masuk kedalam website
+    When Pengguna mengisi name dengan Test
     And Pengguna mengisi username dengan test
     And Pengguna mengisi email dengan test@gmail.com
     And Pengguna melampirkan gambar user dengan kodekiddo

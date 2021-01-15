@@ -11,14 +11,14 @@ Feature: Anggota Anggota Anggota
     And Pengguna menekan link Data Anggota
     And Pengguna menekan link Tambah Anggota
     And Pengguna mengisi nama dengan Test
-    And Pengguna mengisi npm dengan 0000001
+    And Pengguna mengisi npm dengan 10000333
     And Pengguna mengisi tempat_lahir dengan Bandung
-    And Pengguna memilih tgl_lahir dengan 04271998
+    And Pengguna memilih tgl_lahir dengan 27041998
     And Pengguna menekan opsi jenis_kelamin dengan Laki-Laki
     And Pengguna menekan opsi prodi dengan TI 
     And Pengguna menekan opsi user_id dengan 3
     And Pengguna menekan tombol Submit
-    Then Pengguna dengan atribut npm 0000001 terdaftar pada tabel anggota 
+    Then Pengguna dengan atribut npm 10000333 terdaftar pada tabel anggota 
 
 
     

@@ -14,6 +14,6 @@ Feature: Transaksi Transaksi Transaksi
         And Pengguna klik judul buku Pemrograman Android
         And Pengguna menekan tombol Cari Anggota
         And Pengguna klik nama anggota Test
-        And Pengguna mengisi keterangan Pinjam
+        And Pengguna mengisi keterangan dengan Pinjam
         And Pengguna menekan tombol Submit
         Then Akan muncul tulisan "Berhasil"
