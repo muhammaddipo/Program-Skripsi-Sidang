@@ -12,7 +12,11 @@ use App\Http\Controllers\UserController;
 class UserTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = User::where('name','Test')->count();
+ 	$response = $this->post('/login',[
+	'email'=>'admin123@gilacoding.com',
+	'password'=>'admin123',
+	]);
+	$count = User::where('name','Test')->count();
 	$array1 = [
 	'name'=>'Test',
 	'username'=>'test',
@@ -25,7 +29,7 @@ public function testUnit1(){
 	if($count==0){
 		$controller->storeFunction($array1, $gambar=NULL);
 	}
-	$newCount = User::where('username','test')->count();
+	$newCount = User::where('name','Test')->count();
 	$this->assertEquals($count, $newCount-1); 
  	 
 } 

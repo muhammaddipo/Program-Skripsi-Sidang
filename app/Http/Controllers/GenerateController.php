@@ -10,12 +10,11 @@ use Svg\Tag\Rect;
 
 class GenerateController extends Controller
 {
-    private $readerWriter, $namaModels;
+    private $readerWriter;
 
     public function __construct()
     {
         $this->readerWriter = new ReaderWriterController();
-        $this->namaModels = $this->readerWriter->bacaNamaModel();
     }
 
     public function generateDusk()
@@ -27,7 +26,6 @@ class GenerateController extends Controller
         // loop untuk semua nama file
         for ($i = 2; $i < sizeof($namaFile); $i++) {
             $file = $namaFile[$i];
-            // $file="transaksi.txt";
 
             // set file reader
             $this->readerWriter->setFileReader($file);
@@ -50,7 +48,7 @@ class GenerateController extends Controller
             $generateDusk->setFileWriter($fileWriter);
 
             // bikin body
-            $generateDusk->writeBody($newFileName, $fileReader, $namaModel, $this->namaModels);
+            $generateDusk->writeBody($newFileName, $fileReader, $namaModel);
         }
     }
 
@@ -63,7 +61,6 @@ class GenerateController extends Controller
         // loop untuk semua nama file
         for ($i = 2; $i < sizeof($namaFile); $i++) {
             $file = $namaFile[$i];
-            // $file = "transaksi.txt";
 
             // set file reader
             $this->readerWriter->setFileReader($file);
@@ -85,7 +82,7 @@ class GenerateController extends Controller
             $generatePHPUnit->setFileWriter($fileWriter);
 
             // bikin body
-            $generatePHPUnit->writeBody($newFileName, $fileReader, $namaModel, $folderName, $this->namaModels);
+            $generatePHPUnit->writeBody($newFileName, $fileReader, $namaModel, $folderName);
 
         }
     }

@@ -12,7 +12,11 @@ use App\Http\Controllers\BukuController;
 class BukuTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = Buku::where('judul','Pemgrograman Python')->count();
+ 	$response = $this->post('/login',[
+	'email'=>'admin123@gilacoding.com',
+	'password'=>'admin123',
+	]);
+	$count = Buku::where('isbn','123456789')->count();
 	$array1 = [
 	'judul'=>'Pemgrograman Python',
 	'isbn'=>'123456789',

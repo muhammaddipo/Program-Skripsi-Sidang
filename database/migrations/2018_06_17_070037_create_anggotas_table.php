@@ -21,7 +21,7 @@ class CreateAnggotasTable extends Migration
             $table->string('nama');
             $table->string('tempat_lahir')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->string('jenis_kelamin');
+            $table->enum('jk', ['L', 'P']);
             $table->string('prodi')->nullable();
             $table->timestamps();
         });
