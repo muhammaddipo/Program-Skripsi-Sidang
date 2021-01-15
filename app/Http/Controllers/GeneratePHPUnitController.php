@@ -33,9 +33,8 @@ class GeneratePHPUnitController extends Controller
         // atribut bantuan
         $keys = [
             "Scenario:", "Given", "When", "And", "Then", "halaman", "Login", //6
-            "berhasil", "tulisan", "Sign", "kembali", "", "", //12
-            "Submit", "atribut", "Register", "gambar", "", "", //18
-            "tgl", "", "", "", "Berhasil", "tetap" // 24
+            "berhasil", "tulisan", "Sign", "kembali", "Submit", "atribut", //12
+            "Register", "gambar", "tgl", "tetap" // 16
         ];
 
         $this->write("<?php\n");
@@ -138,7 +137,7 @@ class GeneratePHPUnitController extends Controller
                             } else if ($words[$j] == $keys[9]) { // Sign -> Signout
                                 $this->write('$response = $this->post(' . "'/logout');\n\t");
                                 $logout = true;
-                            } else if ($words[$j] == $keys[13] || $words[$j] == $keys[15]) { // 13 submit 15 Register
+                            } else if ($words[$j] == $keys[11] || $words[$j] == $keys[13]) { // 11 submit 13 Register
                                 $arrKey = array_keys($array);
                                 $this->write('$count = ' . $namaModel . "::where('" . $arrKey[0] . "','" . $array[$arrKey[0]][0] . "')->count();\n\t");
 
@@ -159,9 +158,9 @@ class GeneratePHPUnitController extends Controller
                                 $this->write('$array1 = [' . "\n\t");
 
                                 foreach ($array as $key => $value) {
-                                    if ($key == $keys[16]) { //gambar
+                                    if ($key == $keys[14]) { //gambar
                                         $this->write("'" . $key . "'=>NULL,\n\t");
-                                    } else if (str_contains($key, $keys[19])) { //kalau ada tgl
+                                    } else if (str_contains($key, $keys[15])) { //kalau ada tgl
                                         $tgl = substr($value[0], 4, 4) . "-" . substr($value[0], 0, 2) . "-" . substr($value[0], 2, 2); // dd/mm/yyyy -> yyyy-mm-dd
                                         $this->write("'" . $key . "'=>'" . $tgl . "',\n\t");
                                     } else {
@@ -170,11 +169,9 @@ class GeneratePHPUnitController extends Controller
                                 }
                                 $this->write('];' . "\n\t");
                                 $this->write('$controller = new ' . $namaModel . "Controller();\n\t");
-                                if ($namaModel == $keys[21]) { //transaksi
-                                    $this->write('if($count<=3){' . "\n\t\t");
-                                } else {
-                                    $this->write('if($count==0){' . "\n\t\t");
-                                }
+
+                                $this->write('if($count==0){' . "\n\t\t");
+
 
                                 $this->write('$controller->storeFunction' . '($array1, $gambar=NULL)' . ";\n\t");
                                 $this->write("}\n\t");
@@ -197,14 +194,14 @@ class GeneratePHPUnitController extends Controller
                                 } else {
                                     $this->write('$response->assertRedirect(' . "'/" . $words[sizeof($words) - 1] . "'" . "); \n\t} \n\t \n\t");
                                 }
-                            } else if ($words[$j] == $keys[10] || $words[$j] == $keys[24]) { // 10 kembali 24 tetap
+                            } else if ($words[$j] == $keys[10] || $words[$j] == $keys[16]) { // 10 kembali 16 tetap
                                 $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");
-                            } else if ($words[$j] == $keys[14]) { //atribut
+                            } else if ($words[$j] == $keys[12]) { //atribut
                                 // if ($namaModel == $keys[17] || $namaModel == $keys[18] || $namaModel == $keys[20] || $namaModel == $keys[21]) { // 17 User 18 Anggota 20 Buku 21 Transaksi
-                                    $this->write('$newCount = ' . $namaModel . "::where('" . $words[$j+1] . "','" . $words[$j+2] . "')->count();\n\t");
-                                    $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
+                                $this->write('$newCount = ' . $namaModel . "::where('" . $words[$j + 1] . "','" . $words[$j + 2] . "')->count();\n\t");
+                                $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
                                 // }
-                            } else if ($words[$j] == $keys[23]) { //berhasil
+                            } else if (strtolower($words[$j]) == $keys[7]) { //berhasil
                                 $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
                             }
                         }
