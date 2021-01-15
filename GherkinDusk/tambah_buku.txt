@@ -10,13 +10,13 @@ Feature: Buku Buku Buku
     And Pengguna menekan link Master Data
     And Pengguna menekan link Data Buku
     And Pengguna menekan link Tambah Buku
-    And Pengguna mengisi judul dengan Pemgrograman_Python
+    And Pengguna mengisi judul dengan Pemgrograman Python
     And Pengguna mengisi isbn dengan 123456789
-    And Pengguna mengisi pengarang dengan Muhammad_Dipo
-    And Pengguna mengisi penerbit dengan PT_Muhammad_Dipo
+    And Pengguna mengisi pengarang dengan Muhammad Dipo
+    And Pengguna mengisi penerbit dengan PT Muhammad Dipo
     And Pengguna mengisi tahun_terbit dengan 2015
     And Pengguna mengisi jumlah_buku dengan 5
-    And Pengguna mengisi deskripsi dengan Buku_untuk_belajar_Bahasa_Pemrograman_Python
+    And Pengguna mengisi deskripsi dengan Buku untuk belajar Bahasa Pemrograman Python
     And Pengguna menekan opsi lokasi dengan rak1 
     And Pengguna melampirkan cover buku dengan python
     And Pengguna menekan tombol Submit

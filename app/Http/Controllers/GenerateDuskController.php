@@ -44,9 +44,8 @@ class GenerateDuskController extends Controller
         // atribut bantuan
         $keys = [
             "Scenario:", "Given", "When", "And", "Then", "halaman", "tombol", "berhasil", "tulisan", //8
-            "login", "menggunakan", "link", "opsi", "atribut", "melampirkan", "memilih", "", //16
-            "", "password_confirmation", "", "sudah login", //20
-            "", "menunggu", "klik", "", "tetap", "tgl" //26
+            "login", "menggunakan", "link", "opsi", "atribut", "melampirkan", "memilih", "password_confirmation", //16
+            "menunggu", "klik", "tetap", "tgl" //20
         ];
 
         //keys 9, 10, 15
@@ -90,19 +89,27 @@ class GenerateDuskController extends Controller
                                     $fillable = $model->getFillable();
 
                                     foreach ($fillable as $atr) {
-                                        
+
                                         if ($words[$j] == $atr) {
                                             // if (in_array($words[$j], $used) == false) {
-                                                if ($words[$j - 1] == $keys[12]) { //opsi
-                                                    $this->write("->select('" . $words[$j] . "','" . $words[sizeof($words) - 1] . "')\n \t");
-                                                } else if ($words[$j - 1] == $keys[14]) { //melampirkan
-                                                    $this->write("->attach('" . $words[$j] . "',base_path('public/images/" . strtolower($namaModel) . "/" . $words[sizeof($words) - 1] . ".png'))\n \t");
-                                                } else if (str_contains($words[$j], $keys[26])) { //kalau ada tgl
-                                                    $this->write("->keys('#" . $words[$j] . "','" . $words[$j + 2] . "')\n \t");
-                                                } else {
-                                                    $this->write("->type('" . $words[$j] . "', '" . $words[$j + 2] . "') \n \t");
+                                            if ($words[$j - 1] == $keys[12]) { //opsi
+                                                $this->write("->select('" . $words[$j] . "','" . $words[sizeof($words) - 1] . "')\n \t");
+                                            } else if ($words[$j - 1] == $keys[14]) { //melampirkan
+                                                $this->write("->attach('" . $words[$j] . "',base_path('public/images/" . strtolower($namaModel) . "/" . $words[sizeof($words) - 1] . ".png'))\n \t");
+                                            } else if (str_contains($words[$j], $keys[20])) { //kalau ada tgl
+                                                $this->write("->keys('#" . $words[$j] . "','" . $words[$j + 2] . "')\n \t");
+                                            } else {
+
+                                                $str = "";
+                                                for ($k = $j + 2; $k < sizeof($words); $k++) {
+                                                    $str .= $words[$k];
+                                                    if ($k != sizeof($words) - 1) {
+                                                        $str .= " ";
+                                                    }
                                                 }
-                                                array_push($used, $words[$j]);
+                                                $this->write("->type('" . $words[$j] . "', '" . $str . "') \n \t");
+                                            }
+                                            array_push($used, $words[$j]);
                                             // }
 
                                             // $this->write($atr." \n");
@@ -141,26 +148,26 @@ class GenerateDuskController extends Controller
                                 // $this->write("->select('" . $words[$j + 1] . "','" . $words[$j + 2] . "')\n \t");
                             } else if ($words[$j] == $keys[14]) { //melampirkan
                                 // $this->write("->attach('" . $words[$j + 1] . "',base_path('public/images/" . strtolower($namaModel) . "/" . $words[sizeof($words) - 1] . "png'))\n \t");
-                            } else if ($words[$j] == $keys[18]) { //password_confirmation
+                            } else if ($words[$j] == $keys[16]) { //password_confirmation
                                 $this->write("->type('" . $words[$j] . "', '" . $words[$j + 2] . "') \n \t");
                             }
                             //  else if ($words[$j] == $keys[21]) { //jenis kelamin
                             //     $this->write("->select('" . $words[$j] . "','" . $words[$j + 2] . "')\n \t");
                             // } 
-                            else if ($words[$j] == $keys[22]) { //menunggu
+                            else if ($words[$j] == $keys[17]) { //menunggu
                                 $this->write("->waitForText('" . $words[$j + 3] . " " . $words[$j + 4] . "')\n \t");
-                            } else if ($words[$j] == $keys[23]) { //klik
+                            } else if ($words[$j] == $keys[18]) { //klik
                                 $this->write('->click("tr[data-' . $words[$j + 2] . '_' . $words[$j + 1] . "='");
-                                
+
                                 for ($k = $j + 3; $k < sizeof($words); $k++) {
                                     $this->write($words[$k]);
                                     if ($k != sizeof($words) - 1) {
                                         $this->write(" ");
                                     }
                                 }
-                                $j++;//agar judul dan nama di skip
+                                $j++; //agar judul dan nama di skip
                                 $this->write("']" . '"' . ")\n\t");
-                            } 
+                            }
                             // else if ($words[$j] == $keys[24]) { //keterangan
                             //     $this->write("->type('" . $words[$j] . "', '" . $words[$j + 1] . "') \n \t");
                             // }
@@ -178,9 +185,11 @@ class GenerateDuskController extends Controller
                                     }
                                 }
                                 $this->write("->assertSee(" . $msg . "); \n \t}); \n} \n \n");
-                            } else if ($words[$j] == $keys[25]) { //kembali
-                                $this->write("->assertPathIs('/" . $words[sizeof($words) - 1] . "'); \n \t}); \n} \n \n");
-                            } else if ($words[$j] == $keys[13]) { //atribut
+                            }
+                            // else if ($words[$j] == $keys[25]) { //kembali
+                            //     $this->write("->assertPathIs('/" . $words[sizeof($words) - 1] . "'); \n \t}); \n} \n \n");
+                            // } 
+                            else if ($words[$j] == $keys[13]) { //atribut
                                 $this->write(";});\n \t");
                                 $this->write('$this' . "->assertDatabaseHas('" . $words[sizeof($words) - 1] . "',[ \n \t");
                                 $this->write("'" . $words[$j + 1] . "' => " . "'" . $words[$j + 2] . "'\n\t");

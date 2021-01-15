@@ -33,18 +33,10 @@ public function testUnit3(){
  	->type('email', 'admin123@gilacoding.com') 
  	->type('password', 'admin122') 
  	->press('Login')
- 	->assertPathIs('/login'); 
- 	}); 
-} 
- 
-public function testUnit4(){
+ 	public function testUnit4(){
  	$this->browse(function (Browser $browser){
  	$browser->visit('/login') 
  	->type('email', 'user123@gilacoding.com') 
  	->type('password', 'user122') 
  	->press('Login')
- 	->assertPathIs('/login'); 
- 	}); 
-} 
- 
-}
+ 	}
