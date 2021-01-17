@@ -174,7 +174,7 @@ class GenerateDuskController extends Controller
                         }
                     } else if ($words[$i] == $keys[4]) { //Then
                         for ($j = 0; $j < sizeof($words); $j++) {
-                            if ($words[$j] == $keys[7]) { //berhasil
+                            if ($words[$j] == $keys[7] || $words[$j] == $keys[19]) { //berhasil || tetap
                                 $this->write("->assertPathIs('/" . $words[sizeof($words) - 1] . "'); \n \t}); \n} \n \n");
                             } else if ($words[$j] == $keys[8]) { //tulisan
                                 $msg = "";
@@ -185,11 +185,7 @@ class GenerateDuskController extends Controller
                                     }
                                 }
                                 $this->write("->assertSee(" . $msg . "); \n \t}); \n} \n \n");
-                            }
-                            // else if ($words[$j] == $keys[25]) { //kembali
-                            //     $this->write("->assertPathIs('/" . $words[sizeof($words) - 1] . "'); \n \t}); \n} \n \n");
-                            // } 
-                            else if ($words[$j] == $keys[13]) { //atribut
+                            } else if ($words[$j] == $keys[13]) { //atribut
                                 $this->write(";});\n \t");
                                 $this->write('$this' . "->assertDatabaseHas('" . $words[sizeof($words) - 1] . "',[ \n \t");
                                 $this->write("'" . $words[$j + 1] . "' => " . "'" . $words[$j + 2] . "'\n\t");
