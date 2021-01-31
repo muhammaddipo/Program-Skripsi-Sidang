@@ -24,11 +24,11 @@ class ReaderWriterController extends Controller
         }else{
             $this->dir = "..\\GherkinPHPUnit\\";
         }
-        $namaFile = [];
-        if (is_dir($this->dir)) {
-            if ($dh = opendir($this->dir)) {
-                while (($file = readdir($dh)) !== false) {
-                    array_push($namaFile, $file);
+        $namaFile = []; //array yang akan berisi semua nama file dari folder GherkinDusk atau GherkinPHPUnit
+        if (is_dir($this->dir)) {//Cek kalau path sesuai Dusk atau PHPUnit
+            if ($dh = opendir($this->dir)) {//Masuk ke folder
+                while (($file = readdir($dh)) !== false) {//Selama nama file masih ada/tidak kosong dalam folder
+                    array_push($namaFile, $file);//Masukan nama file didalam folder(satu per satu) kedalam array namaFile
                 }
                 closedir($dh);
             }
@@ -37,12 +37,12 @@ class ReaderWriterController extends Controller
     }
 
     public function bacaNamaModel(){
-        $dir = "..\\app\\";
-        $namaModel = [];
-        if (is_dir($dir)) {
-            if ($dh = opendir($dir)) {
-                while (($file = readdir($dh)) !== false) {
-                    array_push($namaModel, $file);
+        $dir = "..\\app\\";//Folder model
+        $namaModel = [];//Array untuk menampung nama model dari fitur-fitur website
+        if (is_dir($dir)) {//Cek kalau path sudah sesuai untuk mengambil nama model
+            if ($dh = opendir($dir)) {//Masuk ke folder
+                while (($file = readdir($dh)) !== false) {//Baca semua isi dari folder app sampai file terakhir
+                    array_push($namaModel, $file);//Masukan nama file kedalam array namaModel
                 }
                 closedir($dh);
             }
@@ -52,13 +52,13 @@ class ReaderWriterController extends Controller
 
     public function bacaFileHeader()
     {
-        $header = [];
-        $words = preg_split('/\s+/', fgets($this->fileReader), -1, PREG_SPLIT_NO_EMPTY);
-        $folderName = $words[1];
+        $header = [];//Array untuk menampung header(baris pertama pada skenario) dari skenario Gherkin 
+        $words = preg_split('/\s+/', fgets($this->fileReader), -1, PREG_SPLIT_NO_EMPTY);//Membaca baris pertama dari skenario Gherkin
+        $folderName = $words[1];//Untuk nama folder sebagai penempatan file testing
         array_push($header, $folderName);
-        $newFileName = $words[2];
+        $newFileName = $words[2];//Untuk nama file testing
         array_push($header, $newFileName);
-        $namaModel = $words[3];
+        $namaModel = $words[3];//Nama model yang fiturnya akan diuji dari skenario Gherkin
         array_push($header, $namaModel);
 
         return $header;
@@ -66,33 +66,33 @@ class ReaderWriterController extends Controller
 
     public function setFileReader($namaFile)
     {
-        $this->fileReader = fopen($this->dir . $namaFile, 'r');
+        $this->fileReader = fopen($this->dir . $namaFile, 'r');//Membaca file skenario Gherkin
     }
 
     public function getFileReader()
     {
-        return $this->fileReader;
+        return $this->fileReader;//Dapetin file skenario Gherkin
     }
 
     public function buatFolder($newDir, $folderName, $fileName)
     {
-        $dir = dirname(__DIR__) . $newDir . $folderName;
+        $dir = dirname(__DIR__) . $newDir . $folderName;//Path untuk penempatan file testing
 
-        if (is_dir($dir) === false) {
+        if (is_dir($dir) === false) {//Cek jika nama folder sudah ada
             mkdir($dir);
         }
 
 
-        $this->setFileWriter($dir, $fileName);
+        $this->setFileWriter($dir, $fileName);//File testing yang akan ditulis kode.
     }
 
     public function setFileWriter($dir, $fileName)
     {
-        $this->fileWriter = fopen($dir . '/' . $fileName . 'Test.php', 'w');
+        $this->fileWriter = fopen($dir . '/' . $fileName . 'Test.php', 'w');//Bikin file baru untuk menulis kode testing
     }
 
     public function getFileWriter()
     {
-        return $this->fileWriter;
+        return $this->fileWriter;//Mendapatkan file testing yang akan ditulis kode testing
     }
 }
