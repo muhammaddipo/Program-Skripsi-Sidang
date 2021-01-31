@@ -10,27 +10,27 @@ class GeneratePHPUnitController extends Controller
 
     public function __construct()
     {
-        $this->newDir = '..\\..\\..\\tests\\Feature\\';
+        $this->newDir = '..\\..\\..\\tests\\Feature\\';//Folder penempatan file PHPUnit
     }
 
     public function setFileWriter($fileWriter)
     {
-        $this->fileWriter = $fileWriter;
+        $this->fileWriter = $fileWriter;//Menentukan file yang akan dituliskan kode PHPUnit
     }
 
     private function write($text)
     {
-        fwrite($this->fileWriter, $text);
+        fwrite($this->fileWriter, $text);//Menulis kode kedalam file PHPUnit
     }
 
     public function getNewDir()
     {
-        return $this->newDir;
+        return $this->newDir;//Mendapatkan folder penempatan file PHPUnit
     }
 
     public function writeBody($newFileName, $fileReader, $namaModel, $namaFolder, $namaModels)
     {
-        // atribut bantuan
+        // Variable array keys yang berisi kata kunci sebagai penanda untuk kode apa yang seharusnya ditulis jika kata kunci tersebut muncul
         $keys = [
             "Scenario:", "Given", "When", "And", "Then", "halaman", "Login", //6
             "berhasil", "tulisan", "Sign", "kembali", "Submit", "atribut", //12
@@ -40,19 +40,19 @@ class GeneratePHPUnitController extends Controller
         $this->write("<?php\n");
         $this->write("namespace Tests\\Feature\\" . $namaFolder . ";\n \n");
 
-        $this->write("use Tests\TestCase;\n");
-        $this->write("use Illuminate\Foundation\Testing\WithFaker;\n");
-        $this->write("use Illuminate\Foundation\Testing\RefreshDatabase;\n \n");
+        $this->write("use Tests\TestCase;\n");//Extend parent package PHPUnit
+        $this->write("use Illuminate\Foundation\Testing\WithFaker;\n");//Untuk generate string random(tidak dipakai)
+        $this->write("use Illuminate\Foundation\Testing\RefreshDatabase;\n \n");//Refresh database setiap melakukan testing
 
-        $pathModel = "App\\" . $namaModel;
-        $model = new $pathModel;
+        $pathModel = "App\\" . $namaModel;//Menampung path model
+        $model = new $pathModel;//Inisialisasi kelas model
         // $fillable = $model->getFillable();
 
-        $pathController =  "App\\Http\\Controllers\\" . $namaModel . "Controller";
-        $controller = new $pathController;
+        $pathController =  "App\\Http\\Controllers\\" . $namaModel . "Controller";//Path controller
+        //$controller = new $pathController;
 
-        $this->write("use " . $pathModel . ";\n \n");
-        $this->write("use " . $pathController . ";\n \n");
+        $this->write("use " . $pathModel . ";\n \n");//Manggil model
+        $this->write("use " . $pathController . ";\n \n");//Manggil controller
 
         // gunakan semua model yang ada
         // foreach ($namaModels as $model) {
@@ -62,45 +62,45 @@ class GeneratePHPUnitController extends Controller
         //     }
         // }
 
-        $this->write("class " . $newFileName . "Test" . " extends TestCase { \n \n");
+        $this->write("class " . $newFileName . "Test" . " extends TestCase { \n \n");//Membuat kelas dengan nama file baru
 
-        $banyakTest = 1;
+        $banyakTest = 1;//Banyaknya test yang dilakukan
 
-        $used = []; // digunakan untuk atr di dalam model
-        $array = []; // digunakan untuk menyimpan key dan value dari model
-        $logout = false;
+        $used = []; // Array ini berisi atribut pada model yang digunakan pada skenario gherkin yang sudah dibuat
+        $array = []; // Digunakan untuk menyimpan key dan value dari model sesuai atribut yang di terdapat pada array used
+        $logout = false; //Cek sudah logout atau belum
 
-        if ($fileReader) {
-            while (($line = fgets($fileReader)) !== false) {
-                $words = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
+        if ($fileReader) {//Cek jika file reader terisi akan menulis kode sesuai kondisi keyword
+            while (($line = fgets($fileReader)) !== false) {//Membaca file skenario per baris
+                $words = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);//Memecah baris menjadi kata per kata
 
                 // idx untuk words
-                for ($i = 0; $i < sizeof($words); $i++) {
+                for ($i = 0; $i < sizeof($words); $i++) {//Mencari keyword dari kata-kata yang sudah dipecah dari file skenario Gherkin
 
                     if ($words[$i] == $keys[0]) { // Scenario:
-                        $this->write("public function testUnit" . $banyakTest . "(){\n \t");
+                        $this->write("public function testUnit" . $banyakTest . "(){\n \t");//Buat fungsi dengan nama testUnit ditambah banyaknya test
                         $banyakTest++;
                     } else if ($words[$i] == $keys[1] || $words[$i] == $keys[2] || $words[$i] == $keys[3]) { //Given || When || And
-                        for ($j = 0; $j < sizeof($words); $j++) {
+                        for ($j = 0; $j < sizeof($words); $j++) {//Membaca kata per kata dalam satu baris untuk mencari keyword
 
                             // untuk given
                             if ($words[$j] == $keys[5]) { //halaman
-                                $this->write('$response = $this->post(' . "'/" . $words[$j + 1] . "',[\n\t");
+                                $this->write('$response = $this->post(' . "'/" . $words[$j + 1] . "',[\n\t");//Pengguna memerlukan method post untuk mengirimkan informasi email dan password saat login
                             }
 
                             // cek semua atribut yang ada di db
-                            foreach ($namaModels as $model1) {
-                                if (str_contains($model1, ".php") && !str_contains($model1, "Helpers")) {
-                                    $pathModel = "App\\" . substr($model1, 0, -4);
+                            foreach ($namaModels as $model1) {//Mendapatkan nama model yang ada
+                                if (str_contains($model1, ".php") && !str_contains($model1, "Helpers")) {//Jika nama file diakhiri php dan bukan Helpers maka file tersebut ialah file model
+                                    $pathModel = "App\\" . substr($model1, 0, -4);//Supaya .php tidak terbawa
 
-                                    $model = new $pathModel;
-                                    $fillable = $model->getFillable();
-                                    foreach ($fillable as $atr) {
-                                        if ($words[$j] == $atr) {
-                                            if (in_array($words[$j], $used) == false) {
-                                                $key = $words[$j];
-                                                $array[$key] = [];
-                                                $str = "";
+                                    $model = new $pathModel;//Inisialisasi kelas model
+                                    $fillable = $model->getFillable();//Mendapatkan atribut yang terdapat didalam model untuk dicek apakah atribut tersebut ada didalam skenario
+                                    foreach ($fillable as $atr) {//Pengulangan untuk mendapatkan atribut model
+                                        if ($words[$j] == $atr) {//Mengecek apakah atribut pada model digunakan pada skenario Gherkin
+                                            if (in_array($words[$j], $used) == false) {//Kalau didalam array used belum terdapat atribut yang didapatkan dalam pengecekan
+                                                $key = $words[$j];//Atribut model
+                                                $array[$key] = [];//Inisialisasi array associative dengan atribut dijadikan sebagai key, dan nilainya sebagai value
+                                                $str = "";//Value dari atribut
                                                 for ($k = $j + 2; $k < sizeof($words); $k++) {
                                                     $str .= $words[$k];
                                                     if ($k != sizeof($words) - 1) {
@@ -108,8 +108,8 @@ class GeneratePHPUnitController extends Controller
                                                     }
                                                 }
 
-                                                array_push($used, $words[$j]);
-                                                array_push($array[$key], $str);
+                                                array_push($used, $words[$j]);//Memasukan atribut yang didapat pada skenario gherkin kedalam array used
+                                                array_push($array[$key], $str);//Memasukan value kedalam array yang keynya berupa atribut pada model
                                             }
                                         }
                                     }

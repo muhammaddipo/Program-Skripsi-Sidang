@@ -87,7 +87,7 @@ class GenerateDuskController extends Controller
                                     $model = new $pathModel;//Inisialisasi kelas model
                                     $fillable = $model->getFillable();//Mendapatkan atribut yang terdapat didalam model untuk dicek apakah atribut tersebut ada didalam skenario
 
-                                    foreach ($fillable as $atr) {//Pengulangan atribut agar dapat ketika membaca skenario
+                                    foreach ($fillable as $atr) {//Pengulangan untuk mendapatkan atribut model
 
                                         if ($words[$j] == $atr) {//Mengecek apakah atribut pada model digunakan pada skenario Gherkin
                                             // if (in_array($words[$j], $used) == false) {
