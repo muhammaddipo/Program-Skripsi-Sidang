@@ -12,7 +12,7 @@ use App\Http\Controllers\TransaksiController;
 class TransaksiTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = Transaksi::where('kode_transaksi','TR00001')->count();
+ 	$count = Transaksi::where('tgl_pinjam','01012021')->count();
 	$array1 = [
 	'kode_transaksi'=>'TR00001',
 	'tgl_pinjam'=>'2021-01-01',

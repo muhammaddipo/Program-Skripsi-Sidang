@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 class UserTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = User::where('name','Test')->count();
+ 	$count = User::where('username','test')->count();
 	$array1 = [
 	'name'=>'Test',
 	'username'=>'test',

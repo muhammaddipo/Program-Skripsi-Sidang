@@ -12,7 +12,7 @@ use App\Http\Controllers\AnggotaController;
 class AnggotaTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = Anggota::where('nama','Test')->count();
+ 	$count = Anggota::where('npm','0000001')->count();
 	$array1 = [
 	'nama'=>'Test',
 	'npm'=>'0000001',

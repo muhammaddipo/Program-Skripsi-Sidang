@@ -12,7 +12,7 @@ use App\Http\Controllers\BukuController;
 class BukuTest extends TestCase { 
  
 public function testUnit1(){
- 	$count = Buku::where('judul','Pemgrograman Python')->count();
+ 	$count = Buku::where('isbn','123456789')->count();
 	$array1 = [
 	'judul'=>'Pemgrograman Python',
 	'isbn'=>'123456789',
@@ -22,7 +22,7 @@ public function testUnit1(){
 	'jumlah_buku'=>'5',
 	'deskripsi'=>'Buku untuk belajar Bahasa Pemrograman Python',
 	'lokasi'=>'rak1',
-	'cover'=>'dengan python',
+	'cover'=>'python',
 	];
 	$controller = new BukuController();
 	if($count==0){

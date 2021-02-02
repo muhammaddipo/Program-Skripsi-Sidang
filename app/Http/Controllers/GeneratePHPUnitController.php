@@ -54,13 +54,6 @@ class GeneratePHPUnitController extends Controller
         $this->write("use " . $pathModel . ";\n \n");//Manggil model
         $this->write("use " . $pathController . ";\n \n");//Manggil controller
 
-        // gunakan semua model yang ada
-        // foreach ($namaModels as $model) {
-        //     if (str_contains($model, ".php") && !str_contains($model, "Helpers")) {
-        //         $pathModel = "App\\" . substr($model, 0, -4);
-        //         $this->write("use " . $pathModel . ";\n \n");
-        //     }
-        // }
 
         $this->write("class " . $newFileName . "Test" . " extends TestCase { \n \n");//Membuat kelas dengan nama file baru
 
@@ -117,50 +110,27 @@ class GeneratePHPUnitController extends Controller
                             }
 
 
-                            // if (in_array($words[$j], $used) == false) { //untuk nama yang tidak ada di db transaksi
-                            //     if ($words[$j] == $keys[22]) { //11 email //12 password 22 nama
-                            //         $key = $words[$j];
-                            //         $array[$key] = [];
-
-                            //         array_push($used, $words[$j]);
-                            //         array_push($array[$key], $words[$j + 2]);
-                            //     }
-                            // }
 
                             if ($words[$j] == $keys[6]) { //login
-                                foreach ($array as $key => $value) {
+                                foreach ($array as $key => $value) {//Print isi array untuk fitur login
                                     $this->write("'" . $key . "'=>'" . $value[0] . "',\n\t");
                                 }
                                 $this->write("]);\n\t");
                                 $array = [];
                                 $used = [];
                             } else if ($words[$j] == $keys[9]) { // Sign -> Signout
-                                $this->write('$response = $this->post(' . "'/logout');\n\t");
+                                $this->write('$response = $this->post(' . "'/logout');\n\t");//Melakukan logout
                                 $logout = true;
                             } else if ($words[$j] == $keys[11] || $words[$j] == $keys[13]) { // 11 submit 13 Register
-                                $arrKey = array_keys($array);
-                                $this->write('$count = ' . $namaModel . "::where('" . $arrKey[0] . "','" . $array[$arrKey[0]][0] . "')->count();\n\t");
-
-                                // if ($namaModel == $keys[17]) { //user
-                                //     $atrNama = "name";
-                                // } else if ($namaModel == $keys[18]) {
-                                //     $atrNama = "nama";
-                                // }
-
-                                // if ($namaModel == $keys[17] || $namaModel == $keys[18]) { // 17 User 18 Anggota
-                                //     $this->write('$count = ' . $namaModel . "::where('" . $atrNama . "','" . $array[$atrNama][0] . "')->count();\n\t");
-                                // } else if ($namaModel == $keys[20]) { // buku
-                                //     $this->write('$count = ' . $namaModel . "::where('isbn','" . $array['isbn'][0] . "')->count();\n\t");
-                                // } else if ($namaModel == $keys[21]) { // transaksi
-                                //     $this->write('$count = ' . $namaModel . "::where('anggota_id'," . $array['anggota_id'][0] . ")->count();\n\t");
-                                // }
+                                $arrKey = array_keys($array);//Mengambil keys dari array
+                                $this->write('$count = ' . $namaModel . "::where('" . $arrKey[1] . "','" . $array[$arrKey[1]][0] . "')->count();\n\t");//Ambil atribut dan value untuk dilakukan pengecekan apakah data yang ingin dimasukan sudah ada didatabase atau belum
 
                                 $this->write('$array1 = [' . "\n\t");
 
                                 foreach ($array as $key => $value) {
                                     if ($key == $keys[14]) { //gambar
                                         $this->write("'" . $key . "'=>NULL,\n\t");
-                                    } else if (str_contains($key, $keys[15])) { //kalau ada tgl
+                                    } else if (str_contains($key, $keys[15])) { //kalau ada tgl, digunakan sebagai keyword karena perubahan format
                                         $tgl = substr($value[0], 4, 4) . "-" . substr($value[0], 0, 2) . "-" . substr($value[0], 2, 2); // dd/mm/yyyy -> yyyy-mm-dd
                                         $this->write("'" . $key . "'=>'" . $tgl . "',\n\t");
                                     } else {
@@ -176,14 +146,6 @@ class GeneratePHPUnitController extends Controller
                                 $this->write('$controller->storeFunction' . '($array1, $gambar=NULL)' . ";\n\t");
                                 $this->write("}\n\t");
 
-
-                                // if ($namaModel == $keys[17] || $namaModel == $keys[18]) { // 17 User 18 Anggota
-                                //     $this->write('$newCount = ' . $namaModel . "::where('" . $atrNama . "','" . $array[$atrNama][0] . "')->count();\n\t");
-                                // } else if ($namaModel == $keys[20]) { // buku
-                                //     $this->write('$newCount = ' . $namaModel . "::where('isbn','" . $array['isbn'][0] . "')->count();\n\t");
-                                // } else if ($namaModel == $keys[21]) { // transaksi
-                                //     $this->write('$newCount = ' . $namaModel . "::where('anggota_id'," . $array['anggota_id'][0] . ")->count();\n\t");
-                                // }
                             }
                         }
                     } else if ($words[$i] == $keys[4]) { //Then

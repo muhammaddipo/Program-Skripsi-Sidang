@@ -12,6 +12,6 @@ Feature: Buku Buku Buku
     And Pengguna mengisi jumlah_buku dengan 5
     And Pengguna mengisi deskripsi dengan Buku untuk belajar Bahasa Pemrograman Python
     And Pengguna menekan opsi lokasi dengan rak1 
-    And Pengguna melampirkan cover buku dengan python
+    And Pengguna melampirkan cover dengan python
     And Pengguna menekan tombol Submit
     Then Buku dengan atribut isbn 123456789 terdaftar pada tabel buku 
