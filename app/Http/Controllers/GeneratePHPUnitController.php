@@ -143,7 +143,7 @@ class GeneratePHPUnitController extends Controller
                                 $this->write('if($count==0){' . "\n\t\t");
 
 
-                                $this->write('$controller->storeFunction' . '($array1, $gambar=NULL)' . ";\n\t");
+                                $this->write('$controller->storeFunction' . '($array1, $image=NULL)' . ";\n\t");
                                 $this->write("}\n\t");
 
                             }
@@ -159,13 +159,9 @@ class GeneratePHPUnitController extends Controller
                             } else if ($words[$j] == $keys[10] || $words[$j] == $keys[16]) { // 10 kembali 16 tetap
                                 $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");
                             } else if ($words[$j] == $keys[12]) { //atribut
-                                // if ($namaModel == $keys[17] || $namaModel == $keys[18] || $namaModel == $keys[20] || $namaModel == $keys[21]) { // 17 User 18 Anggota 20 Buku 21 Transaksi
                                 $this->write('$newCount = ' . $namaModel . "::where('" . $words[$j + 1] . "','" . $words[$j + 2] . "')->count();\n\t");
                                 $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
-                                // }
-                            } else if (strtolower($words[$j]) == $keys[7]) { //berhasil
-                                $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
-                            }
+                            } 
                         }
                         $array = [];
                         $used = [];

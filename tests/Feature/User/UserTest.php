@@ -23,7 +23,7 @@ public function testUnit1(){
 	];
 	$controller = new UserController();
 	if($count==0){
-		$controller->storeFunction($array1, $gambar=NULL);
+		$controller->storeFunction($array1, $image=NULL);
 	}
 	$newCount = User::where('username','test')->count();
 	$this->assertEquals($count, $newCount-1); 

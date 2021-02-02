@@ -26,7 +26,7 @@ public function testUnit1(){
 	];
 	$controller = new BukuController();
 	if($count==0){
-		$controller->storeFunction($array1, $gambar=NULL);
+		$controller->storeFunction($array1, $image=NULL);
 	}
 	$newCount = Buku::where('isbn','123456789')->count();
 	$this->assertEquals($count, $newCount-1); 

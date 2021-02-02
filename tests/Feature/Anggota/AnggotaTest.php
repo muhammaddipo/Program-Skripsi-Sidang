@@ -24,7 +24,7 @@ public function testUnit1(){
 	];
 	$controller = new AnggotaController();
 	if($count==0){
-		$controller->storeFunction($array1, $gambar=NULL);
+		$controller->storeFunction($array1, $image=NULL);
 	}
 	$newCount = Anggota::where('npm','0000001')->count();
 	$this->assertEquals($count, $newCount-1); 
