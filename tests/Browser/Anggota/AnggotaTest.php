@@ -19,7 +19,7 @@ public function testUnit1(){
  	->type('nama', 'Test') 
  	->type('npm', '10000333') 
  	->type('tempat_lahir', 'Bandung') 
- 	->keys('#tgl_lahir','27041998')
+ 	->keys('#tgl_lahir','4271998')
  	->select('jenis_kelamin','Laki-Laki')
  	->select('prodi','TI')
  	->select('user_id','3')
