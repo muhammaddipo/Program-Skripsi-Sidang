@@ -4,8 +4,8 @@ Feature: Transaksi Transaksi Transaksi
 
     Scenario: Berhasil tambah transaksi
         Given Pengguna sudah masuk kedalam website
-        When Pengguna memilih kode_transaksi dengan TR00001
-        And Pengguna memilih tgl_pinjam dengan 01012021
+        When Pengguna memilih tgl_pinjam dengan 01012021
+        And Pengguna memilih kode_transaksi dengan TR00001
         And Pengguna memilih tgl_kembali dengan 01052021
         And Pengguna menekan tombol Cari Buku
         And Pengguna menunggu muncul kata Cari Buku

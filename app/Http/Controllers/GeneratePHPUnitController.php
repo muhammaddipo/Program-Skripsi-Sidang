@@ -152,15 +152,15 @@ class GeneratePHPUnitController extends Controller
                         for ($j = 0; $j < sizeof($words); $j++) {
                             if ($words[$j] == $keys[7]) { // berhasil
                                 if ($logout) {
-                                    $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");
+                                    $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");//Untuk logout, diarahkan ke index oleh router
                                 } else {
-                                    $this->write('$response->assertRedirect(' . "'/" . $words[sizeof($words) - 1] . "'" . "); \n\t} \n\t \n\t");
+                                    $this->write('$response->assertRedirect(' . "'/" . $words[sizeof($words) - 1] . "'" . "); \n\t} \n\t \n\t");//Untuk login, mengarahkan ke suatu page
                                 }
                             } else if ($words[$j] == $keys[10] || $words[$j] == $keys[16]) { // 10 kembali 16 tetap
-                                $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");
+                                $this->write('$response->assertRedirect(' . "''" . "); \n\t} \n\t \n\t");//Gagal melakukan aksi login
                             } else if ($words[$j] == $keys[12]) { //atribut
-                                $this->write('$newCount = ' . $namaModel . "::where('" . $words[$j + 1] . "','" . $words[$j + 2] . "')->count();\n\t");
-                                $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");
+                                $this->write('$newCount = ' . $namaModel . "::where('" . $words[$j + 1] . "','" . $words[$j + 2] . "')->count();\n\t");//Cek apakah data sudah masuk ke database atau belum
+                                $this->write('$this' . "->assertEquals(" . '$count, $newCount-1' . "); \n \t \n} \n \n");//Cek apakah actual result, sama expected result sama setelah dikurangi 1
                             } 
                         }
                         $array = [];
